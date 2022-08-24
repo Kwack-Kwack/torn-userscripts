@@ -8,7 +8,7 @@
 // @match        *://www.torn.com/factions.php?step=your*
 // ==/UserScript==
 
-var yourType = ""; //Type can be directly inserted into script
+var yourType = "";
 var bags = new Object();
 
 getType();
