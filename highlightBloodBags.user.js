@@ -8,68 +8,73 @@
 // @match        *://www.torn.com/factions.php?step=your*
 // ==/UserScript==
 
-var yourType = "";
-loadType();
-var test;
-var bags = [];
-console.log("test");
-var interval = 300;
-startInterval();
-function startInterval() {
-    test = setTimeout(pagechecker, 300);
-}
-function pagechecker() {
-    if (
-        document.getElementsByClassName("good-blood").length ||
-        document.getElementsByClassName("bad-blood").length
-    ) {
-        interval = 1000;
-    } else {
-        interval = 300;
+var yourType = ""; //Type can be directly inserted into script
+var bags = new Object();
+
+getType();
+
+//adds the actual highlights
+function highlightsAdd() {
+    if (!yourType) getType();
+    for (var bag in bags) {
+        var blood; //"good"ness of the blood type
+        isBadBloodType(bag) ? (blood = "bad-blood") : (blood = "good-blood");
+        if (isArmoury()) {
+            bags[bag].forEach((element) =>
+                element.parentNode.parentNode.classList.add(blood)
+            );
+        } else {
+            bags[bag].forEach((element) =>
+                element.parentNode.parentNode.parentNode.classList.add(blood)
+            );
+        }
     }
-    bags = {
-        AP: document.querySelectorAll("[src='/images/items/732/large.png']"),
-        AM: document.querySelectorAll("[src='/images/items/733/large.png']"),
-        BP: document.querySelectorAll("[src='/images/items/734/large.png']"),
-        BM: document.querySelectorAll("[src='/images/items/735/large.png']"),
-        ABP: document.querySelectorAll("[src='/images/items/736/large.png']"),
-        ABM: document.querySelectorAll("[src='/images/items/737/large.png']"),
-        OP: document.querySelectorAll("[src='/images/items/738/large.png']"),
-        OM: document.querySelectorAll("[src='/images/items/739/large.png']"),
-    };
-    highlightBags(bags.AP, "A+");
-    highlightBags(bags.AM, "A-");
-    highlightBags(bags.BP, "B+");
-    highlightBags(bags.BM, "B-");
-    highlightBags(bags.ABP, "AB+");
-    highlightBags(bags.ABM, "AB-");
-    highlightBags(bags.OP, "O+");
-    highlightBags(bags.OM, "O-");
-    test = setTimeout(pagechecker, interval);
+    checkBags();
+}
+//checks if the page is the faction armoury or the items page
+function isArmoury() {
+    if (document.URL.includes("factions.php")) return true;
+    return false;
 }
 
-function stopInterval() {
-    clearTimeout(test);
-}
-function highlightBags(bags, type) {
-    if (!bags) return;
-    bags.forEach((bag) => {
-        if (document.URL.includes("factions.php"))
-            isBadBloodType(type)
-                ? bag.parentNode.parentNode.classList.add("bad-blood")
-                : bag.parentNode.parentNode.classList.add("good-blood");
-        else
-            isBadBloodType(type)
-                ? bag.parentNode.parentNode.parentNode.classList.add(
-                      "bad-blood"
-                  )
-                : bag.parentNode.parentNode.parentNode.classList.add(
-                      "good-blood"
-                  );
-    });
+//checks for blood bags, and if new ones are found, re-calls the highlights
+function checkBags() {
+    var oldBags = bags;
+    var bagsFinder = setInterval(() => {
+        bags = {
+            AP: document.querySelectorAll(
+                "[src='/images/items/732/large.png']"
+            ),
+            AM: document.querySelectorAll(
+                "[src='/images/items/733/large.png']"
+            ),
+            BP: document.querySelectorAll(
+                "[src='/images/items/734/large.png']"
+            ),
+            BM: document.querySelectorAll(
+                "[src='/images/items/735/large.png']"
+            ),
+            ABP: document.querySelectorAll(
+                "[src='/images/items/736/large.png']"
+            ),
+            ABM: document.querySelectorAll(
+                "[src='/images/items/737/large.png']"
+            ),
+            OP: document.querySelectorAll(
+                "[src='/images/items/738/large.png']"
+            ),
+            OM: document.querySelectorAll(
+                "[src='/images/items/739/large.png']"
+            ),
+        };
+        if (bags != oldBags) {
+            clearInterval(bagsFinder);
+            highlightsAdd();
+        }
+    }, 300);
 }
 
-//modified from old tornCAT filter script
+//local storage modification
 function loadType() {
     yourType = localStorage.getItem("highlightBloodBags.yourType");
 }
@@ -85,43 +90,50 @@ let GM_addStyle = function (s) {
 };
 
 function isBadBloodType(type) {
-    if (yourType == "AB+") {
+    if (!yourType) console.error("You have no type!");
+    if (yourType == "ABP") {
         return false;
-    } else if (yourType == "AB-") {
-        return !["O-", "B-", "A-", "AB-"].includes(type);
-    } else if (yourType == "A+") {
-        return !["O-", "O+", "A-", "A+"].includes(type);
-    } else if (yourType == "A-") {
-        return !["O-", "A-"].includes(type);
-    } else if (yourType == "B+") {
-        return !["O-", "O+", "B-", "B+"].includes(type);
-    } else if (yourType == "B-") {
-        return !["O-", "B-"].includes(type);
-    } else if (yourType == "O+") {
-        return !["O-", "O+"].includes(type);
-    } else if (yourType == "O-") {
-        return type != "O-";
+    } else if (yourType == "ABM") {
+        return !["OM", "BM", "AM", "ABM"].includes(type);
+    } else if (yourType == "AP") {
+        return !["OM", "OP", "AM", "AP"].includes(type);
+    } else if (yourType == "AM") {
+        return !["OM", "AM"].includes(type);
+    } else if (yourType == "BP") {
+        return !["OM", "OP", "BM", "BP"].includes(type);
+    } else if (yourType == "BM") {
+        return !["OM", "BM"].includes(type);
+    } else if (yourType == "OP") {
+        return !["OM", "OP"].includes(type);
+    } else if (yourType == "OM") {
+        return type != "OM";
     } else {
-        console.log("type bugged");
+        console.error("type bugged");
     }
 }
+
+//Attempts to load type from memory, or calls prompt if loading your type fails
 function getType() {
     if (!yourType) {
         console.log("attempting to load blood type from local memory");
         loadType();
-    } else
+    } else {
         console.log(
             `blood type ${yourType} loaded directly from script, highlighting blood bags`
         );
-
+        return;
+    }
     if (!yourType) {
         console.log("unable to find, prompting for blood type");
         promptForType();
-    } else
+    } else {
         console.log(
             `blood type ${yourType} loaded from memory, highlighting blood bags`
         );
+    }
 }
+
+//Prompting for type. If wrong type is accidentally inserted, add type to yourType at beginning of script or remove from local memory
 function promptForType() {
     yourType = prompt("Please enter your blood type", "AB+");
     while (
@@ -139,6 +151,8 @@ function promptForType() {
             "AB+"
         );
     }
+    if (yourType.slice(-1) == "+") yourType = yourType.slice(0, -1) + "P";
+    else yourType = yourType.slice(0, -1) + "M";
     saveType();
     console.log(`Saved blood type as ${yourType}`);
 }
@@ -152,3 +166,4 @@ var styles = `
 }
 `;
 GM_addStyle(styles);
+checkBags();
