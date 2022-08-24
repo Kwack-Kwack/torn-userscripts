@@ -77,6 +77,18 @@ function checkBags() {
 //local storage modification
 function loadType() {
     yourType = localStorage.getItem("highlightBloodBags.yourType");
+    if(!yourType) return;
+    if(yourType.slice(-1) == "+") {
+        yourType = yourType.slice(0,-1) + "P";
+        saveType();
+    } else if(yourType.slice(-1) == "-") {
+        yourType = yourType.slice(0,-1) + "M"
+        saveType();
+    }
+    if(!["AP", "AM", "BP", "BM", "ABP", "ABM", "OP", "OM"].includes(yourType)) {
+        console.log("loaded yourType is bugged, prompting for type")
+        promptForType();
+    }
 }
 function saveType() {
     localStorage.setItem("highlightBloodBags.yourType", yourType);
