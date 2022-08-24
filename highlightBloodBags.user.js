@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blood Bag Highlights
 // @namespace    https://www.torn.com/profiles.php?XID=2190604
-// @version      1.0
+// @version      2.0
 // @description  Adds colours to the torn item's page to show good vs bad blood types
 // @author       Kwack [2190604]
 // @match        *://www.torn.com/item.php*
