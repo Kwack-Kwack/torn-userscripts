@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Deletes all messages posted by Pandora [1541749]
 // @author       Kwack [2190604]
-// @match        *://*torn.com/*
+// @match        *://*.torn.com/*
 // @updateURL   https://github.com/itsBlair-hide/torn-userscripts/raw/main/chatBlockPandora.user.js
 // ==/UserScript==
 let chatRoot;
