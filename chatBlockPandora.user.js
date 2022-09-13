@@ -1,11 +1,11 @@
 /// ==UserScript==
 // @name         Block Pandora in chat
 // @namespace    https://github.com/itsBlair-hide/torn-userscripts
-// @version      0.1
+// @version      0.2
 // @description  Deletes all messages posted by Pandora [1541749]
 // @author       Kwack [2190604]
 // @match        *://*.torn.com/*
-// @updateURL   https://github.com/itsBlair-hide/torn-userscripts/raw/main/chatBlockPandora.user.js
+// @updateURL    https://github.com/itsBlair-hide/torn-userscripts/raw/main/chatBlockPandora.user.js
 // ==/UserScript==
 
 
