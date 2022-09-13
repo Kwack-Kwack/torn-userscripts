@@ -4,12 +4,14 @@
 // @version      0.1
 // @description  Deletes all messages posted by Pandora [1541749]
 // @author       Kwack [2190604]
-// @match        *://*torn.com/*
+// @match        *://*.torn.com/*
 // @updateURL   https://github.com/itsBlair-hide/torn-userscripts/raw/main/chatBlockPandora.user.js
 // ==/UserScript==
+
+
 let chatRoot;
 let pandoraMessages;
-
+let deleter;
 let GM_addStyle = function (s) {
     let style = document.createElement("style");
     style.type = "text/css";
@@ -19,7 +21,7 @@ let GM_addStyle = function (s) {
 
 
 pageReady().then(() => {
-    let deleter = setInterval(() => {
+    deleter = setInterval(() => {
         pandoraMessages = chatRoot.querySelectorAll(
             "[href='/profiles.php?XID=1541749'"
         );
@@ -31,13 +33,16 @@ pageReady().then(() => {
 });
 
 async function pageReady() {
-    let checker = setInterval(() => {
-        if (document.querySelector("#chatRoot")) {
-            chatRoot = document.querySelector("#chatRoot");
-            console.log("Chat root found! Starting script now...");
-            clearInterval(checker);
-        }
-    });
+    return new Promise(resolve => {
+        let checker = setInterval(() => {
+            if (document.querySelector("#chatRoot")) {
+                chatRoot = document.querySelector("#chatRoot");
+                console.log("Chat root found! Starting script now...");
+                clearInterval(checker);
+                resolve()
+            }
+        });
+    })
 }
 
 var styles = `
