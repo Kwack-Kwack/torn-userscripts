@@ -24,6 +24,7 @@ let chat;
     });
     try{
         document.querySelector("#chatRoot").parentElement.removeChild(chatRoot)
+        document.querySelector("script[src*='chats.min.js']").parentElement.removeChild(document.querySelector("script[src*='chats.min.js']"))
         // document.body.parentElement.innerHTML = pageHTML;
     } catch(e) {
         console.error("Error thrown", e)
