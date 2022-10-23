@@ -12,7 +12,9 @@ let chat;
 let removeElem = (...elems) => {
     for (let elem of elems) {
         try {
-            document.querySelector(elem).parentElement.removeChild(document.querySelector(elem));
+            document
+                .querySelector(elem)
+                .parentElement.removeChild(document.querySelector(elem));
         } catch (e) {
             console.error(e, elem);
         }
@@ -32,13 +34,18 @@ let removeElem = (...elems) => {
     //     }, 100);
     // });
     try {
-        removeElem("#chatRoot", "script[src*='chats.min.js']", "#gtm_tag", "script[src*='editor.build.js']", "script[src*='tinymce.js']", "script[src*='tinymce.option.js']", "script[src*='forums_sidebar.js']", "script[src*='n_mvc_forums.js']");
-        // document.body.parentElement.innerHTML = pageHTML;
-        console.log("done!")
-        return true;
+        // removeElem("#chatRoot", "script[src*='chats.min.js']", "#gtm_tag", "script[src*='editor.build.js']", "script[src*='tinymce.js']", "script[src*='tinymce.option.js']", "script[src*='forums_sidebar.js']", "script[src*='n_mvc_forums.js']");
+        // // document.body.parentElement.innerHTML = pageHTML;
+        // console.log("done!")
+        // return true;
+        document.addEventListener("error", (e) => {
+            console.error("message:", e.message);
+            console.error("name:", e.name);
+            console.error("stack:", e.stack);
+        });
     } catch (e) {
         console.error("Error thrown", e);
-    }   
+    }
 })();
 
 // let pageHTML;
