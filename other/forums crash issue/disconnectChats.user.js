@@ -21,19 +21,20 @@ let removeElem = (...elems) => {
 
 (async () => {
     console.warn("Script start");
-    await new Promise((resolve) => {
-        const checker = setInterval(() => {
-            if (document.querySelector("#chatRoot")) {
-                console.log("Chats found! Starting script");
-                chatRoot = document.querySelector("#chatRoot");
-                clearInterval(checker);
-                resolve();
-            }
-        }, 100);
-    });
+    // await new Promise((resolve) => {
+    //     const checker = setInterval(() => {
+    //         if (document.querySelector("#chatRoot")) {
+    //             console.log("Chats found! Starting script");
+    //             chatRoot = document.querySelector("#chatRoot");
+    //             clearInterval(checker);
+    //             resolve();
+    //         }
+    //     }, 100);
+    // });
     try {
-        removeElem("#chatRoot", "script[src*='chats.min.js']", "#gtm_tag");
+        removeElem("#chatRoot", "script[src*='chats.min.js']", "#gtm_tag", "script[src*='editor.build.js']", "script[src*='tinymce.js']", "script[src*='tinymce.option.js']", "script[src*='forums_sidebar.js']", "script[src*='n_mvc_forums.js']");
         // document.body.parentElement.innerHTML = pageHTML;
+        console.log("done!")
         return true;
     } catch (e) {
         console.error("Error thrown", e);
