@@ -8,23 +8,21 @@
 // @grant        none
 // ==/UserScript==
 
-let url = "https://github.com/Kwack-Kwack/torn-userscripts/raw/main/other/forums%20crash%20issue/test.js";
+let url =
+    "https://github.com/Kwack-Kwack/torn-userscripts/raw/main/other/forums%20crash%20issue/test.js";
 
 (async () => {
-    console.log("Test log")
-    console.log(`URL for testing script: ${url}`)
+    console.log("Test log");
+    console.log(`URL for testing script: ${url}`);
 
-let response;
+    let response;
     try {
-        response = await PDA_httpGet(url).then(r => r.responseText);
-    } catch(e) {
-        console.error("Error thrown during fetch", e)
+        response = await PDA_httpGet(url).then((r) => r.responseText);
+    } catch (e) {
+        console.error("Error thrown during fetch", e);
     }
 
-    console.log(`Script requested at ${url} contains the following code:`)
-    console.log(response)
-
-})()
-
+    eval(response);
+})();
 
 // await PDA_evaluateJavascript(response)
