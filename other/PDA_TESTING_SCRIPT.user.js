@@ -22,7 +22,7 @@ let url =
         console.error("Error thrown during fetch", e);
     }
 
-    eval(response);
-})();
+    await PDA_evaluateJavascript(response)
 
-// await PDA_evaluateJavascript(response)
+    console.log("script completed")
+})();
