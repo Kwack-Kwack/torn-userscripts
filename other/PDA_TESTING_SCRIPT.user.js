@@ -8,8 +8,13 @@
 // ==/UserScript==
 
 let url = "";
+console.log(`URL for testing script: ${url}`)
 
-let response = await PDA_httpGet(url).then(r => r.responseText);
+try {
+    let response = await PDA_httpGet(url).then(r => r.responseText);
+} catch(e) {
+    console.error("Error thrown during fetch", e)
+}
 
 console.log(`Script requested at ${url} contains the following code:`)
 console.log(response)
