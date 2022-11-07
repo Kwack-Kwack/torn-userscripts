@@ -15,6 +15,7 @@
 const colors = true; // Grey out completed categories
 const open_by_default = true; // Open tab by default
 let active;
+let apiKey = "###PDA-APIKEY###"
 
 if (open_by_default) {
     active = "active";
@@ -58,7 +59,7 @@ let cssStr = (`
     }
     console.warn("Page is an items page, script starting");
     GM_addStyle(cssStr)
-    let apiKey = getApiKey();
+    getApiKey();
 
     fetch("https://api.torn.com/user/?selections=personalstats&key=" + apiKey)
         .then((response) => response.json())
@@ -186,11 +187,9 @@ function JQAfter(elem, htmlStr) {
 }
 
 function getApiKey() {
-    let apiKey = this.apiKey
-    console.log(apiKey)
-    if (apiKey) {
+    if (apiKey && apiKey.charAt(0) !== "#") {
         PDAmode = true;
-        return apiKey;
+        return;
     }
     apiKey = localStorage.getItem("uapikey");
     if (apiKey === null) {
@@ -202,7 +201,6 @@ function getApiKey() {
             localStorage.setItem("uapikey", apiKey);
         }
     }
-    return apiKey;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
