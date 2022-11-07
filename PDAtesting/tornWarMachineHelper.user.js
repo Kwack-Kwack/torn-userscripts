@@ -20,7 +20,7 @@ if (open_by_default) {
     active = "active";
 }
 
-let style = (`
+let cssStr = (`
     table {
     table-layout:fixed;
     width:100%;
@@ -57,7 +57,7 @@ let style = (`
         return;
     }
     console.warn("Page is an items page, script starting");
-    GM_addStyle(style)
+    GM_addStyle(cssStr)
     let apiKey = getApiKey();
 
     fetch("https://api.torn.com/user/?selections=personalstats&key=" + apiKey)
