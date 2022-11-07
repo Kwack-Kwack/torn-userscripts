@@ -73,7 +73,7 @@ let cssStr = (`
                         `#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`
                     )[0] != undefined
                 ) {
-                    hr = `#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`;
+                    hr = document.querySelector(`#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`);
                 }
             });
 
