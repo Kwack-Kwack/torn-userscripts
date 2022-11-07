@@ -210,7 +210,7 @@ function getApiKey() {
 function GM_addStyle(cssStr) {
     const style = document.createElement("style");
     style.type = "text/css";
-    style.innerHTML = s;
+    style.innerHTML = cssStr;
     document.head.appendChild(style)
 }
 
