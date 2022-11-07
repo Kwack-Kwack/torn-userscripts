@@ -7,6 +7,13 @@
     // @match        https://www.torn.com/item.php
     // @grant        none
     // ==/UserScript==
+    
+    //below is for PDAtesting
+    if(!document.URL.includes("torn.com/item.php")) {
+        console.error("Page isn't an items page!")
+        return;
+    }
+    console.warn("Page is an items page, script starting");
 
     const colors = true; // Grey out completed categories
     const open_by_default = true; // Open tab by default
