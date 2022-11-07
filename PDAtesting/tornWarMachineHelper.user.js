@@ -9,11 +9,8 @@
 // ==/UserScript==
 
 //below is for PDAtesting
-if (!document.URL.includes("torn.com/item.php")) {
-    console.error("Page isn't an items page!");
-    return;
-}
-console.warn("Page is an items page, script starting");
+
+
 
 const colors = true; // Grey out completed categories
 const open_by_default = true; // Open tab by default
@@ -23,7 +20,7 @@ if (open_by_default) {
     active = "active";
 }
 
-GM_addStyle(`
+let style = (`
     table {
     table-layout:fixed;
     width:100%;
@@ -55,6 +52,12 @@ GM_addStyle(`
 
 (function () {
     "use strict";
+    if (!document.URL.includes("torn.com/item.php")) {
+        console.error("Page isn't an items page!");
+        return;
+    }
+    console.warn("Page is an items page, script starting");
+    GM_addStyle(style)
     let apiKey = getApiKey();
 
     fetch("https://api.torn.com/user/?selections=personalstats&key=" + apiKey)
