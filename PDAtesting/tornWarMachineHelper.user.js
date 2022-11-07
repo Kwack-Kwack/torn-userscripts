@@ -208,12 +208,10 @@ function getApiKey() {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 function GM_addStyle(cssStr) {
-    var D = document;
-    var newNode = D.createElement("style");
-    newNode.textContent = cssStr;
-
-    var targ = D.getElementsByTagName("head")[0] || D.body || D.documentElement;
-    targ.appendChild(newNode);
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = s;
+    document.head.appendChild(style)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
