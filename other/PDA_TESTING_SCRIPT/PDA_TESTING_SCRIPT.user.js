@@ -13,7 +13,7 @@
 let url = ""; //insert the url for your script here.
 
 (async () => {
-
+    let apiKey = "###PDA-APIKEY###" //comment out this line if not needed
     let response;
     try {
         response = await PDA_httpGet(url).then((r) => r.responseText);
