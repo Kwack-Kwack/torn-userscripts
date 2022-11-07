@@ -10,18 +10,16 @@
 
 //below is for PDAtesting
 
-
-
 const colors = true; // Grey out completed categories
 const open_by_default = true; // Open tab by default
 let active;
-let apiKey = "###PDA-APIKEY###"
+let apiKey = "###PDA-APIKEY###";
 
 if (open_by_default) {
     active = "active";
 }
 
-let cssStr = (`
+let cssStr = `
     table {
     table-layout:fixed;
     width:100%;
@@ -49,16 +47,12 @@ let cssStr = (`
     color: #d3d3d3;
     }
 
-    `);
+    `;
 
 (function () {
     "use strict";
-    if (!document.URL.includes("torn.com/item.php")) {
-        console.error("Page isn't an items page!");
-        return;
-    }
-    console.warn("Page is an items page, script starting");
-    GM_addStyle(cssStr)
+
+    GM_addStyle(cssStr);
     getApiKey();
 
     fetch("https://api.torn.com/user/?selections=personalstats&key=" + apiKey)
@@ -74,7 +68,9 @@ let cssStr = (`
                         `#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`
                     )[0] != undefined
                 ) {
-                    hr = document.querySelector(`#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`);
+                    hr = document.querySelector(
+                        `#mainContainer > div.content-wrapper.${sn} > div.main-items-cont-wrap > hr`
+                    );
                 }
             });
 
@@ -209,7 +205,7 @@ function GM_addStyle(cssStr) {
     const style = document.createElement("style");
     style.type = "text/css";
     style.innerHTML = cssStr;
-    document.head.appendChild(style)
+    document.head.appendChild(style);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
