@@ -700,8 +700,8 @@ new MutationObserver(mutations => {
 	});
 }).observe(document.body, {childList: true, subtree: true});
 
-const oldFetch = unsafeWindow.fetch;
-unsafeWindow.fetch = async (url, init) => {
+const oldFetch = window.fetch;
+window.fetch = async (url, init) => {
 	if (!url.includes("step=getwarusers") && !url.includes("step=getProcessBarRefreshData")) return oldFetch(url, init);
 
 	let response = await oldFetch(url, init);
@@ -725,8 +725,8 @@ unsafeWindow.fetch = async (url, init) => {
 	return response;
 };
 
-const oldWebSocket = unsafeWindow.WebSocket;
-unsafeWindow.WebSocket = function(...args) {
+const oldWebSocket = window.WebSocket;
+window.WebSocket = function(...args) {
 	const socket = new oldWebSocket(...args);
 	socket.addEventListener("message", (event) => {
 		let json = JSONparse(event.data);
