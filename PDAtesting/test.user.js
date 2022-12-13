@@ -1,1 +1,1 @@
-"###PDA-APIKEY###"
+console.log("###PDA-APIKEY###");
